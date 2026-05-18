@@ -190,5 +190,8 @@ jobs:
           options: |
             --verbose
             --inventory inventory/${{ inputs.environment }}.yml
-            ${{ inputs.tag != 'all' && format('--tags={0}', inputs.tag) || ''}}
-            --extra-vars ""${{ steps.ansible-variables.outputs.EXTRA_VARS }}""
+            ${{ inputs.tag != 'all' && format('--tags={0}', inputs.tag) || '' }}
+            --extra-vars """${{ steps.ansible-variables.outputs.EXTRA_VARS }}
+            ssl_crt='${{ secrets.SSL_CRT }}'
+            ssl_key='${{ secrets.SSL_KEY }}'
+            """

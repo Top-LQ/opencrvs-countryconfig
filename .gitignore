@@ -22,4 +22,5 @@ data
 *.tar.gz
 .secrets
 .env*
-notebooks
+notebooks*.key
+*.pem

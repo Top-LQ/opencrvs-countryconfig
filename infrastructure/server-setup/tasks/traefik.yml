@@ -15,3 +15,32 @@
     group: application
     # Owner has rwx, group r, others no permissions
     mode: '0740'
+- name: Create cert dir
+  file:
+    path: /data/traefik/certs
+    state: directory
+    mode: 0755
+
+- name: Create crt file
+  copy:
+    dest: /data/traefik/certs/cert.crt
+    content: |
+      {{ssl_crt}}
+
+- name: Create key file
+  copy:
+    dest: /data/traefik/certs/cert.key
+    content: |
+      {{ssl_key}}
+
+- name: Replace escaped newlines crt
+  replace:
+    path: /data/traefik/certs/cert.crt
+    regexp: '\\n'
+    replace: '\n'
+
+- name: Replace escaped newlines key
+  replace:
+    path: /data/traefik/certs/cert.key
+    regexp: '\\n'
+    replace: '\n'
